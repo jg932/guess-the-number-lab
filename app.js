@@ -23,26 +23,22 @@ const game = {
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
   },
   getGuess: function(){
-    game.currentGuess = window.prompt(`Enter a guess between ${game.smallestNum} and ${game.biggestNum}!`);
+    game.currentGuess = parseInt(window.prompt(`Enter a guess between ${game.smallestNum} and ${game.biggestNum}!`));
     while(game.currentGuess !== game.secretNum){
       game.prevGuesses.push(game.currentGuess);
+      console.log("\n\n\n\n\n\n\n\n" + game.currentGuess, game.secretNum)
       if(game.currentGuess > game.secretNum){
-        game.currentGuess = window.prompt(`Your guess is too high. Previous guess: ${game.prevGuesses}, `)
+        game.currentGuess = parseInt(window.prompt(`Your guess is too high. Previous guess: ${game.prevGuesses}`))
       } else {
-      if (game.currentGuess < game.secretNum){
-        game.currentGuess = window.prompt(`Your guess is too low. Previous guess: ${game.prevGuesses}, `)
-      } else {
-      if (game.currentGuess === game.secretNum){
-        window.prompt(`You guess it! You win!`) 
+        if (game.currentGuess < game.secretNum){
+          game.currentGuess = parseInt(window.prompt(`Your guess is too low. Previous guess: ${game.prevGuesses}`))
         }
       }
-      }
     }
+    window.alert(`You guessed it! You win!`);
   }
 }
-game.play() 
+
+game.play()
 game.getGuess()
-
-
-
 
