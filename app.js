@@ -20,25 +20,38 @@ const game = {
   prevGuesses: [],
   play: function() {
     this.secretNum = Math.floor(Math.random() * 
-      (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
+      (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
+    this.currentGuess = game.getGuess();
+    while(this.currentGuess !== this.secretNum){
+      game.prevGuesses.push(this.currentGuess);
+      game.render()
+      // console.log("\n\n\n\n\n\n\n\n" + this.currentGuess, this.secretNum)
+      this.currentGuess = game.getGuess()
+    }
+    window.alert(`You win! You got it in ${this.prevGuesses.length} guesses!`);
   },
   getGuess: function(){
-    game.currentGuess = parseInt(window.prompt(`Enter a guess between ${game.smallestNum} and ${game.biggestNum}!`));
-    while(game.currentGuess !== game.secretNum){
-      game.prevGuesses.push(game.currentGuess);
-      console.log("\n\n\n\n\n\n\n\n" + game.currentGuess, game.secretNum)
-      if(game.currentGuess > game.secretNum){
-        game.currentGuess = parseInt(window.prompt(`Your guess is too high. Previous guess: ${game.prevGuesses}`))
-      } else {
-        if (game.currentGuess < game.secretNum){
-          game.currentGuess = parseInt(window.prompt(`Your guess is too low. Previous guess: ${game.prevGuesses}`))
-        }
-      }
+    return parseInt(window.prompt(`Enter a guess between ${game.smallestNum} and ${game.biggestNum}!`));
+  },
+  render: function(){
+    const prettyGuesses = this.prevGuesses.join(', ');
+    if(this.currentGuess > this.secretNum){
+      window.alert(`Your guess is too high. Previous guess: ${prettyGuesses}`)
+    } else {
+      window.alert(`Your guess is too low. Previous guess: ${prettyGuesses}`)
     }
-    window.alert(`You guessed it! You win!`);
-  }
+  }, 
+  update: function(){
+    if(this.currentGuess > this.secretNum){
+      this.currentGuess = biggestNum
+    } else {
+    if(this.currentGuess < this.secretNum){
+      this.currentGuess = smallestNum
+    }
+    }
+  },
 }
 
+
 game.play()
-game.getGuess()
 
